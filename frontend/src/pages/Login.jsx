@@ -30,7 +30,7 @@ export default function Login() {
     }
   }
 
-  const input = 'w-full rounded-full bg-black/40 px-8 py-5 text-xl font-medium placeholder-white outline-none focus:ring-2 focus:ring-accent'
+  const input = 'w-full rounded-full bg-black/40 px-8 py-5 text-base font-medium placeholder-white outline-none focus:ring-2 focus:ring-accent'
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-bg to-[#3a2d4d]">

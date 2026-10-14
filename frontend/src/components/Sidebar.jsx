@@ -3,7 +3,7 @@ import { Settings, LogOut } from 'lucide-react'
 import Logo from './Logo.jsx'
 
 const linkCls = ({ isActive }) =>
-  `flex items-center gap-4 rounded-xl px-5 py-4 text-xl font-medium transition ${isActive ? 'bg-accent' : 'hover:bg-white/10'}`
+  `flex items-center gap-4 rounded-xl px-5 py-4 text-sm font-medium transition ${isActive ? 'bg-accent' : 'hover:bg-white/10'}`
 
 export default function Sidebar({ items = [], basePath }) {
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export default function Sidebar({ items = [], basePath }) {
       </div>
       <nav className="flex flex-col gap-3">
         <NavLink to={`${basePath}/settings`} className={linkCls}><Settings size={26} /> Settings</NavLink>
-        <button onClick={logout} className="flex items-center gap-4 rounded-xl px-5 py-4 text-xl font-medium hover:bg-white/10">
+        <button onClick={logout} className="flex items-center gap-4 rounded-xl px-5 py-4 text-sm font-medium hover:bg-white/10">
           <LogOut size={26} /> Logout
         </button>
       </nav>
