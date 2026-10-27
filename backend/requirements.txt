@@ -1,0 +1,16 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pandas>=2.2
+scikit-learn>=1.5
+joblib>=1.4
+lightgbm>=4.5
+xgboost>=2.1
+shap>=0.46
+
+# Optional computer-vision dependencies
+# Install separately if required by your Python environment.
+# ultralytics>=8.3
+# torch
+# torchvision
+# pillow

@@ -1,4 +1,3 @@
-
 import { Car, Gauge, BarChart3, Clock } from 'lucide-react'
 import {
   AreaChart,
@@ -10,6 +9,7 @@ import {
 } from 'recharts'
 
 import TrafficMap from '../components/maps/TrafficMap.jsx'
+import DatasetWorkbench from '../components/DatasetWorkbench.jsx'
 import Panel from '../components/Panel.jsx'
 import AlertCard from '../components/AlertCard.jsx'
 import { alerts, stats, trend } from '../data/mock.js'
@@ -24,7 +24,6 @@ const icons = {
 export default function OfficerDashboard() {
   return (
     <div className="flex h-full min-h-0">
-      {/* Left side: traffic maps */}
       <div className="flex w-[48%] min-w-0 shrink-0 flex-col">
         <TrafficMap
           id="officer-traffic-map"
@@ -40,46 +39,48 @@ export default function OfficerDashboard() {
         />
       </div>
 
-      {/* Right side: officer dashboard */}
       <div className="min-w-0 flex-1 space-y-6 overflow-y-auto bg-gray-50 p-8 text-gray-900">
-        {/* Alerts and recommendations */}
         <div className="flex gap-6">
           <Panel title="Alerts" light className="flex-1">
-            {alerts.map((a) => (
+            {alerts.map((alert) => (
               <AlertCard
-                key={a.id}
-                alert={a}
+                key={alert.id}
+                alert={alert}
                 theme="light"
               />
             ))}
           </Panel>
 
           <div className="hidden flex-1 rounded-2xl border border-gray-200 bg-white 2xl:block">
-            {/* AI recommendations can be added here later */}
+            <div className="p-5">
+              <h2 className="text-lg font-semibold">
+                Traffic recommendations
+              </h2>
+              <p className="mt-2 text-sm text-gray-500">
+                Upload a traffic dataset below to generate
+                data-driven insights.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Live insights */}
         <section className="rounded-2xl border border-gray-200 bg-white">
           <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
-            <h2 className="text-xl font-semibold">
-              Live Insights
-            </h2>
+            <h2 className="text-xl font-semibold">Live Insights</h2>
 
             <span className="flex items-center gap-2 text-sm text-gray-500">
-              Updated 1 min ago
+              Demo statistics
               <span className="h-2 w-2 rounded-full bg-green-500" />
             </span>
           </div>
 
-          {/* Statistics cards */}
           <div className="grid grid-cols-2 gap-4 p-6">
-            {stats.map((s) => {
-              const Icon = icons[s.key]
+            {stats.map((stat) => {
+              const Icon = icons[stat.key]
 
               return (
                 <div
-                  key={s.key}
+                  key={stat.key}
                   className="flex items-center gap-4 rounded-xl bg-purple-50 p-4"
                 >
                   <div className="rounded-lg bg-white p-3 text-brand">
@@ -88,19 +89,19 @@ export default function OfficerDashboard() {
 
                   <div>
                     <div className="text-sm text-gray-600">
-                      {s.label}
+                      {stat.label}
                     </div>
 
                     <div
                       className={`text-3xl font-semibold ${
-                        s.key === 'congestion'
+                        stat.key === 'congestion'
                           ? 'text-orange-500'
                           : 'text-brand'
                       }`}
                     >
-                      {s.value}{' '}
+                      {stat.value}{' '}
                       <span className="text-sm font-normal text-gray-500">
-                        {s.unit}
+                        {stat.unit}
                       </span>
                     </div>
                   </div>
@@ -109,12 +110,9 @@ export default function OfficerDashboard() {
             })}
           </div>
 
-          {/* Traffic trend chart */}
           <div className="px-6 pb-6">
             <div className="mb-2 flex items-center justify-between">
-              <h3 className="text-lg font-semibold">
-                Traffic Trend
-              </h3>
+              <h3 className="text-lg font-semibold">Traffic Trend</h3>
 
               <select className="rounded-lg border border-gray-300 px-3 py-1 text-sm">
                 <option>Last 1 Hour</option>
@@ -126,19 +124,13 @@ export default function OfficerDashboard() {
             <div className="h-52">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={trend}>
-                  <CartesianGrid
-                    vertical={false}
-                    stroke="#eee"
-                  />
+                  <CartesianGrid vertical={false} stroke="#eee" />
 
-                  <XAxis
-                    dataKey="t"
-                    tick={{ fontSize: 12 }}
-                  />
+                  <XAxis dataKey="t" tick={{ fontSize: 12 }} />
 
                   <YAxis
                     domain={[0, 100]}
-                    tickFormatter={(v) => `${v}%`}
+                    tickFormatter={(value) => `${value}%`}
                     tick={{ fontSize: 12 }}
                   />
 
@@ -154,6 +146,8 @@ export default function OfficerDashboard() {
             </div>
           </div>
         </section>
+
+        <DatasetWorkbench />
       </div>
     </div>
   )
